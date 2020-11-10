@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import Child from './child';
 import './index.css';
 
 const HookTest =  (props) => {
     const [counts, setFocusIndex] = useState(0)
+    const [inputValue,setInputValue] = useState(0)
 
     // useState使用
     const addHandler = () => {
@@ -11,6 +13,10 @@ const HookTest =  (props) => {
 
     const clearHandler =() =>{
         setFocusIndex(0)
+    }
+
+    const handleGetInputValue =(event) =>{
+        setInputValue(event.target.value)
     }
     
     return (
@@ -22,7 +28,15 @@ const HookTest =  (props) => {
                 <button onClick={() => addHandler()} >增加</button> &nbsp;
                 <span>{counts}</span>
             </div>
-            
+            <br />
+            <div>
+                <strong> useEffect例子 </strong> &nbsp;
+                <input 
+                    value={inputValue}
+                    onChange={handleGetInputValue}
+                    type='text' />&nbsp;
+                <Child value1={inputValue} />
+            </div>
         </div>
     )
 }
