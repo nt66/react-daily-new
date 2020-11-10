@@ -16,10 +16,8 @@ export default (props) => {
 
     return (
         <>
-            <span>
-                now: {value1}, before:{previous}
-            </span>
-            <button onClick={() => addHandler()} >增加</button> &nbsp;
+            <span>now: {value1}, before:{previous} </span> &nbsp;
+            <button onClick={() => addHandler()} >改变state是否会触发effect？</button> &nbsp;
         </>
     )
 }

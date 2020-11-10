@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, createContext } from 'react';
 import Child from './child';
+import Child2 from './child2';
+import Child3 from './child3';
+import { AppContext } from './utils';
 import './index.css';
 
 const HookTest =  (props) => {
     const [counts, setFocusIndex] = useState(0)
     const [inputValue,setInputValue] = useState(0)
+    // const AppContext = createContext({})
 
     // useState使用
     const addHandler = () => {
@@ -18,7 +22,8 @@ const HookTest =  (props) => {
     const handleGetInputValue =(event) =>{
         setInputValue(event.target.value)
     }
-    
+
+
     return (
         <div>
             <h1>hooks</h1>
@@ -36,6 +41,22 @@ const HookTest =  (props) => {
                     onChange={handleGetInputValue}
                     type='text' />&nbsp;
                 <Child value1={inputValue} />
+            </div>
+            <br />
+            <div>
+                <strong> useMemo例子 </strong> &nbsp;
+                <Child2 />
+            </div>
+            <div>
+                <strong> useContext例子 </strong> &nbsp;
+                <AppContext.Provider
+                    value={{
+                        name:'金水'
+                    }}
+                    >
+                    <Child3 />
+                </AppContext.Provider>
+                
             </div>
         </div>
     )
