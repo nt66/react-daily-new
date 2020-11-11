@@ -10,6 +10,7 @@ class RefTest extends Component {
     render() {
         return (
             <div>
+                <h1>ref</h1>  
                 <input
                     type='text'
                     ref={this.inputRef}
