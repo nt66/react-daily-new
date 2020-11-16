@@ -4,6 +4,7 @@ import HookTest from './pages/hooks';
 import RefTest from './pages/ref';
 import ProtalsTest from './pages/protals';
 import Es6Module from './pages/es6module';
+import Generater from './pages/generater';
 import './App.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path='/ref' component={RefTest}/>
         <Route path='/protals' component={ProtalsTest}/>
         <Route path='/es6module' component={Es6Module}/>
+        <Route path='/generater' component={Generater}/>
 		</Router>  
     </div>
   );
