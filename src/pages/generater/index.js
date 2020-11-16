@@ -1,5 +1,6 @@
 // generater 示例
 export default ()=>{
+    // 作用1:函数流程控制
     function* tell(){
         yield 'a';
         yield 'b';
@@ -7,11 +8,9 @@ export default ()=>{
     };
     let k = tell();
 
-    // 对象iterator化
+    // 作用2:对象iterator化
     let Obj = { a:1,b:2,c:3 };
     let Ary = [1,2,3,4,5];
-
-    // 方法一
     function* iterEntries(obj){
         let keys = Object.keys(obj);
         for(let i=0;i<keys.length;i++){
@@ -21,25 +20,48 @@ export default ()=>{
         }
     }
     for(let item of iterEntries(Obj)){
-        console.log('iterEntries:',item)
+        console.log('作用2:对象iterator化:',item)
     }
 
-    // 方法二
-    // var iterCollection = {
-    //     items:[],
-    //     *[Symbol.iterator]() {
-    //         for(let i of this.items){
-    //         yield i;
-    //         }
-    //     }
-    // }
-    // iterCollection.items = Obj;
+    // 作用3：异步操作同步化
+    // 执行器
+    function fork(generator){
+        const it  = generator()
 
-    
+        function go(result){
+            if(result.done) return result.value;
 
-    // for(let item of iterCollection){
-    // console.log('iterCollection:',item)
-    // }
+            return result.value.then(data=>{
+                go(it.next(data))
+            }).catch(err=>{
+                go(it.throw(err))
+            })
+        }
+        go(it.next())
+
+    };
+
+    function call(url){
+        return new Promise((resolve,reject)=> {
+            fetch(url)
+                .then(res=>res.json())
+                .then(res=>resolve(res))
+                .catch(err=>reject(err))
+        });
+    }
+
+    function* fetchTopics(){
+        const topic = yield call('http://120.27.235.113:9002/suggest/getGameArticles?page=1&game_id=1')
+        console.log('topic:',topic.data.article[0].id);
+        const id = topic.data.article[0].id;
+        const detail = yield call(`http://120.27.235.113:9002/suggest/articleDetail?article_id=${Number(id)}&user_id=0`)
+        console.log('topic:',detail);
+    }
+
+    fork(fetchTopics)
+    // const fetchT = fetchTopics();
+    // fetchT.next();
+    // fetchT.next();
 
     return (
         <>
