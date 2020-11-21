@@ -41,6 +41,7 @@ export default ()=>{
 
     };
 
+    // promise 包装器
     function call(url){
         return new Promise((resolve,reject)=> {
             fetch(url)
@@ -51,11 +52,13 @@ export default ()=>{
     }
 
     function* fetchTopics(){
-        const topic = yield call('http://120.27.235.113:9002/suggest/getGameArticles?page=1&game_id=1')
-        console.log('topic:',topic.data.article[0].id);
+        // const topic = yield call('http://120.27.235.113:9002/suggest/getGameArticles?page=1&game_id=1')
+        const topic = yield fetch('http://120.27.235.113:9002/suggest/getGameArticles?page=1&game_id=1').then(res=>res.json())
+        console.log('fetch1 topic:',topic.data.article[0].id);
         const id = topic.data.article[0].id;
-        const detail = yield call(`http://120.27.235.113:9002/suggest/articleDetail?article_id=${Number(id)}&user_id=0`)
-        console.log('topic:',detail);
+        // const detail = yield call(`http://120.27.235.113:9002/suggest/articleDetail?article_id=${Number(id)}&user_id=0`)
+        const detail = yield fetch(`http://120.27.235.113:9002/suggest/articleDetail?article_id=${Number(id)}&user_id=0`).then(res=>res.json())
+        console.log('fetch2 detail:',detail);
     }
 
     fork(fetchTopics)
