@@ -6,6 +6,7 @@ import ProtalsTest from './pages/protals';
 import Es6Module from './pages/es6module';
 import Generater from './pages/generater';
 import Asyncawait from './pages/asyncawait';
+import Decorator from './pages/decorator';
 import Ajax from './pages/ajax';
 
 import './App.css';
@@ -21,6 +22,7 @@ function App() {
         <Route path='/generater' component={Generater}/>
         <Route path='/asyncawait' component={Asyncawait}/>
         <Route path='/ajax' component={Ajax}/>
+        <Route path='/decorator' component={Decorator} />
 		</Router>  
     </div>
   );
